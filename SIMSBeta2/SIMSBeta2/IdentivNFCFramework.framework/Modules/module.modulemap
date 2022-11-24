@@ -1,0 +1,11 @@
+framework module IdentivNFCFramework {
+  umbrella header "IdentivNFCFramework.h"
+
+  export *
+  module * { export * }
+}
+
+module IdentivNFCFramework.Swift {
+    header "IdentivNFCFramework-Swift.h"
+    requires objc
+}

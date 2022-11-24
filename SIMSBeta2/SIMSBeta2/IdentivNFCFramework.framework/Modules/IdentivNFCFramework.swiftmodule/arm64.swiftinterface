@@ -1,0 +1,456 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios14.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name IdentivNFCFramework
+import CoreNFC
+import Foundation
+@_exported import IdentivNFCFramework
+import Swift
+import UIKit
+public enum NFCTagType : Swift.UInt8 {
+  case NONE
+  case TYPE2
+  case TYPE4
+  case TYPE5
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class NFCTagResponse : ObjectiveC.NSObject {
+  public var tagType: IdentivNFCFramework.NFCTagType
+  public var dataSent: Foundation.Data
+  public var dataReceived: Foundation.Data
+  public var error: Swift.Error?
+  public func formatDisplay() -> Swift.String
+  public func formatDisplayBlock(_ blockSize: Swift.Int = 4) -> Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NFCTagInfo : ObjectiveC.NSObject {
+  public var UID: Swift.String
+  public var manufacturerCode: Swift.String
+  public var manufacturer: Swift.String
+  public var tagType: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+public enum NDEFMode : Swift.String {
+  case Read
+  case Add
+  case Edit
+  case Remove
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum NDEFRecordType : Swift.String {
+  case Text
+  case URI
+  case SmartPoster
+  case Empty
+  case Media
+  case AbsoluteURI
+  case NfcExternal
+  case Unknown
+  case Unchanged
+  public var recordTypeDisplay: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum NDEFUriFormat : Swift.String {
+  case None
+  case HTTP_WWW
+  case HTTPS_WWW
+  case HTTP
+  case HTTPS
+  case TEL
+  case MAIL_TO
+  case FTP_ANONYMOUS
+  case FTP_FTP
+  case FTPS
+  case SFTP
+  case SMB
+  case NFS
+  case FTP
+  case DAV
+  case NEWS
+  case TELNET
+  case IMAP
+  case RTSP
+  case URN
+  case POP
+  case SIP
+  case SIPS
+  case TFTP
+  case BTSPP
+  case BTL2CAP
+  case BTGOEP
+  case TCPOBEX
+  case IRDAOBEX
+  case FILE
+  case URN_EPC_ID
+  case URN_EPC_TAG
+  case URN_EPC_PAT
+  case URN_EPC_RAW
+  case URN_EPC
+  case URN_NFC
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class NDEFPayload : ObjectiveC.NSObject {
+  public var ndefPayload: CoreNFC.NFCNDEFPayload?
+  public var ndefRecordType: IdentivNFCFramework.NDEFRecordType
+  public var uriPayload: IdentivNFCFramework.NDEFUriPayload?
+  public var textPayload: IdentivNFCFramework.NDEFTextPayload?
+  public var mediaPayload: IdentivNFCFramework.NDEFMediaPayload?
+  public func recordType() -> Swift.String
+  public func stringValue() -> Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NDEFUriPayload : ObjectiveC.NSObject {
+  public var URICode: IdentivNFCFramework.NDEFUriFormat
+  public var URIText: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NDEFTextPayload : ObjectiveC.NSObject {
+  public var isUTF16: Swift.Bool
+  public var langCode: Swift.String
+  public var text: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NDEFMediaPayload : ObjectiveC.NSObject {
+  public var mimeType: Swift.String
+  public var text: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+public protocol IdentivNFCDelegate {
+  func didConnectTag(tagType: IdentivNFCFramework.NFCTagType)
+  func didReadTagInfos(tagInfo: IdentivNFCFramework.NFCTagInfo)
+  func didReadEntireMemory(response: IdentivNFCFramework.NFCTagResponse)
+  func didSendCommandType2(response: IdentivNFCFramework.NFCTagResponseType2)
+  func didSendCommandType4(response: [IdentivNFCFramework.NFCTagResponseType4])
+  func didSendCommandType5(response: IdentivNFCFramework.NFCTagResponseType5)
+  func didReadNDEFMessage(message: CoreNFC.NFCNDEFMessage?)
+  func didWriteNDEFMessage(ndefMessage: CoreNFC.NFCNDEFMessage, error: Swift.Error?)
+}
+extension IdentivNFCDelegate {
+  public func didConnectTag(tagType: IdentivNFCFramework.NFCTagType)
+  public func didReadTagInfos(tagInfo: IdentivNFCFramework.NFCTagInfo)
+  public func didReadEntireMemory(response: IdentivNFCFramework.NFCTagResponse)
+  public func didReadNDEFMessage(message: CoreNFC.NFCNDEFMessage?)
+  public func didWriteNDEFMessage(ndefMessage: CoreNFC.NFCNDEFMessage, error: Swift.Error?)
+  public func didSendCommandType2(response: IdentivNFCFramework.NFCTagResponseType2)
+  public func didSendCommandType4(response: [IdentivNFCFramework.NFCTagResponseType4])
+  public func didSendCommandType5(response: IdentivNFCFramework.NFCTagResponseType5)
+}
+@objc @_inheritsConvenienceInitializers public class IdentivNFCTag : ObjectiveC.NSObject {
+  public static var shared: IdentivNFCFramework.IdentivNFCTag
+  public static var nfcType5: IdentivNFCFramework.NFCTag5
+  public static var nfcType4: IdentivNFCFramework.NFCTag4
+  public static var nfcType2: IdentivNFCFramework.NFCTag2
+  public var delegate: IdentivNFCFramework.IdentivNFCDelegate?
+  public var tagType: IdentivNFCFramework.NFCTagType
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension IdentivNFCTag {
+  public func newReaderSession()
+  public func endSession()
+  public func available() -> Swift.Bool
+  public func readTagInfos()
+  public func parseNDEFPayload(_ payload: CoreNFC.NFCNDEFPayload) -> IdentivNFCFramework.NDEFPayload
+  public func writeNDEF(_ payload: CoreNFC.NFCNDEFPayload?, isDelete: Swift.Bool = false)
+  public func readNDEF()
+}
+extension IdentivNFCTag {
+  public func isNDEFAvailable() -> Swift.Bool
+  public func newNDEFReaderSession()
+  public func newNDEFWriterSession(_ mode: IdentivNFCFramework.NDEFMode, _ payload: CoreNFC.NFCNDEFPayload?, updateIndex: Swift.Int?)
+}
+extension IdentivNFCTag : CoreNFC.NFCTagReaderSessionDelegate {
+  public func tagReaderSessionDidBecomeActive(_ session: CoreNFC.NFCTagReaderSession)
+  public func tagReaderSession(_ session: CoreNFC.NFCTagReaderSession, didInvalidateWithError error: Swift.Error)
+  public func tagReaderSession(_ session: CoreNFC.NFCTagReaderSession, didDetect tags: [CoreNFC.NFCTag])
+}
+extension IdentivNFCTag : CoreNFC.NFCNDEFReaderSessionDelegate {
+  @objc dynamic public func readerSession(_ session: CoreNFC.NFCNDEFReaderSession, didDetectNDEFs messages: [CoreNFC.NFCNDEFMessage])
+  @objc dynamic public func readerSession(_ session: CoreNFC.NFCNDEFReaderSession, didDetect tags: [CoreNFC.NFCNDEFTag])
+  @objc dynamic public func readerSessionDidBecomeActive(_ session: CoreNFC.NFCNDEFReaderSession)
+  @objc dynamic public func readerSession(_ session: CoreNFC.NFCNDEFReaderSession, didInvalidateWithError error: Swift.Error)
+}
+extension Data {
+  public var hexadecimal: Swift.String {
+    get
+  }
+  public var hex: Swift.String {
+    get
+  }
+  public var toString: Swift.String {
+    get
+  }
+}
+extension UInt8 {
+  public var hexadecimal: Swift.String {
+    get
+  }
+  public var hex: Swift.String {
+    get
+  }
+  public func to8Bits() -> Swift.String
+}
+extension UInt16 {
+  public var data: Foundation.Data {
+    get
+  }
+}
+extension Int {
+  public var hex: Swift.String {
+    get
+  }
+}
+extension String {
+  public func index(from: Swift.Int) -> Swift.String.Index
+  public func substring(from: Swift.Int) -> Swift.String
+  public func substring(to: Swift.Int) -> Swift.String
+  public func substring(with r: Swift.Range<Swift.Int>) -> Swift.String
+  public func hex() -> Foundation.Data
+  public func bits2UInt8() -> Swift.UInt8
+  public var hexToInt: Swift.Int {
+    get
+  }
+  public var hexToUInt8: Swift.UInt8 {
+    get
+  }
+  public func isValidHexNumber() -> Swift.Bool
+}
+extension String {
+  public var hexaToBinary: Swift.String {
+    get
+  }
+}
+public enum NFCForumType5Command : Swift.UInt8 {
+  case NONE
+  case INVENTORY_CC
+  case STAY_QUIET_CC
+  case READ_SINGLE_BLOCK_CC
+  case WRITE_SINGLE_BLOCK_CC
+  case LOCK_BLOCK_CC
+  case READ_MULTIPLE_BLOCKS_CC
+  case WRITE_MULTIPLE_BLOCKS_CC
+  case SELECT_CC
+  case RESET_TO_READY_CC
+  case WRITE_AFI_CC
+  case LOCK_AFI_CC
+  case WRITE_DSFID_CC
+  case LOCK_DSFID_CC
+  case GET_SYSTEM_INFORMATION_CC
+  case GET_MULTIPLE_BLOCK_SECURITY_STATUS_CC
+  case TRANSPARENT_MODE
+  case READ_ENTIRE_MEMORY
+  case READ_CONFIGURATION
+  case WRITE_CONFIGURATION
+  case WRITE_PASSWORD
+  case PRESENT_PASSWORD
+  case FORMAT
+  public var commandCode: Swift.Int {
+    get
+  }
+  public var commandName: Swift.String {
+    get
+  }
+  public var commandDes: Swift.String {
+    get
+  }
+  public var commandDisplay: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum NFCForumType5Configuration : Swift.UInt8 {
+  case AREA1
+  case AREA2
+  case EAS
+  case CounterConfiguration
+  case CounterValue
+  case TamperDetect
+  case ConfigurationLocked
+  case KeyIdentifier
+  public var commandCode: Swift.Int {
+    get
+  }
+  public var commandDisplay: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class NFCTagResponseType5 : IdentivNFCFramework.NFCTagResponse {
+  override public func formatDisplay() -> Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NFCTag5 : IdentivNFCFramework.IdentivNFCTag {
+  public var blockSize: Swift.Int
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension NFCTag5 {
+  public func inventory(requestFlag: Swift.UInt8, data: Foundation.Data?)
+  public func stayQuiet(requestFlag: Swift.UInt8)
+  public func readSingleBlock(requestFlag: Swift.UInt8, blockNumber: Swift.Int)
+  public func writeSingleBlock(requestFlag: Swift.UInt8, blockNumber: Swift.Int, data: Foundation.Data)
+  public func lockBlock(requestFlag: Swift.UInt8, blockNumber: Swift.Int)
+  public func readMultipleBlocks(requestFlag: Swift.UInt8, firstBlockNumber: Swift.Int, numberOfBlocks: Swift.Int)
+  public func writeMultipleBlocks(requestFlag: Swift.UInt8, firstBlockNumber: Swift.Int, numberOfBlocks: Swift.Int, data: Foundation.Data)
+  public func select(requestFlag: Swift.UInt8)
+  public func resetToReady(requestFlag: Swift.UInt8)
+  public func writeAFI(requestFlag: Swift.UInt8, data: Foundation.Data)
+  public func lockAFI(requestFlag: Swift.UInt8)
+  public func writeDSFID(requestFlag: Swift.UInt8, data: Foundation.Data)
+  public func lockDSFID(requestFlag: Swift.UInt8)
+  public func getSystemInformation(requestFlag: Swift.UInt8)
+  public func getMultipleBlockSecurityStatus(requestFlag: Swift.UInt8, firstBlockNumber: Swift.Int, numberOfBlocks: Swift.Int)
+  public func sendCustomCommand(command: Swift.String)
+  public func readEntireMemory(requestFlag: Swift.UInt8)
+  public func readEntireMemoryByCommandReadSingleBlock(requestFlag: Swift.UInt8)
+  public func readConfiguration(requestFlag: Swift.UInt8, pointer: Swift.UInt8)
+  public func writeConfiguration(requestFlag: Swift.UInt8, pointer: Swift.UInt8, register: Swift.UInt8)
+  public func format()
+}
+public enum NFCForumType4Command : Swift.UInt8 {
+  case NDEFTagApplicationSelect
+  case CCSelect
+  case NDEFSelect
+  case SystemApplicationSelect
+  case SystemSelect
+  case ReadCCLen
+  case ReadBinaryCC
+  case ReadNDEFLen
+  case ReadBinaryNDEF
+  case ReadSystemLen
+  case ReadBinarySystem
+  case UpdateBinaryNDEF
+  case SendCustomCommand
+  case DESFIRET4TCreateNDEFApplication
+  case DESFIRET4TSelectNDEFApplication
+  case DESFIRET4TCreateCCFileFreeAccess
+  case DESFIRET4TWriteCCFile
+  case DESFIRET4TCreateNDEFFileFreeAccess
+  case DESFIRET4TWriteEmptyNDEF
+  public var commandName: Swift.String {
+    get
+  }
+  public var commandDes: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum NFCForumType4Para : Swift.UInt8 {
+  case SLen
+  case CCLen
+  case NDEFMaxFileSize
+  case NDEFFileID
+  case NDEFLen
+  case NDEFP1
+  case NDEFP2
+  case NDEFMaxByteCanRead
+  case NDEFMaxByteCanWrite
+  case NDEFDataToWrite
+  case CustomCommand
+  public var des: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class CAPDUCommand {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class NFCTagResponseType4 : IdentivNFCFramework.NFCTagResponse {
+  override public func formatDisplay() -> Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NFCTag4 : IdentivNFCFramework.IdentivNFCTag {
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension NFCTag4 {
+  public func readCapabilityContainer()
+  public func readNDEFFile()
+  public func readSystemFile()
+  public func writeText(text: Swift.String)
+  public func sendCustomCommand(command: Swift.String)
+  public func format()
+}
+public enum NFCForumType2Command : Swift.UInt8 {
+  case NONE
+  case GET_VERSION
+  case FAST_READ
+  case READ
+  case WRITE
+  case READ_CNT
+  case PWD_AUTH
+  case READ_SIG
+  case CUSTOM
+  case READ_ENTIRE_MEMORY
+  public var commandName: Swift.String {
+    get
+  }
+  public var commandDes: Swift.String {
+    get
+  }
+  public var commandDisplay: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class NFCTagResponseType2 : IdentivNFCFramework.NFCTagResponse {
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers public class NFCTag2 : IdentivNFCFramework.IdentivNFCTag {
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension NFCTag2 {
+  public func readEntireMemory()
+  public func read(startPage: Swift.UInt8)
+  public func write(pageAddress: Swift.UInt8, data: Foundation.Data)
+  public func readSig()
+  public func getVersion()
+  public func sendCustomCommand(command: Swift.String)
+}
